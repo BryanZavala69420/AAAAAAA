@@ -309,7 +309,7 @@ app.post('/NuevaNoticia', upload.single("imagen"), (req, res) => {
     }
 
     const consulta = `
-        INSERT INTO Noticias 
+        INSERT INTO noticias 
         (titulo, noticia, id_periodista, nombre_periodista, imagen, fecha_de_publicacion, hora_de_publicacion) 
         VALUES (?, ?, ?, ?, ?, CURDATE(), CURTIME())
     `;
@@ -331,7 +331,7 @@ app.post('/NuevaNoticia', upload.single("imagen"), (req, res) => {
 //ruta para encontrar las noticias en la pagina principal sexosexo
 
 app.get('/TodasLasNoticias', (req, res) => {
-    const Consulta = 'SELECT * FROM Noticias ORDER BY id_noticia DESC';
+    const Consulta = 'SELECT * FROM noticias ORDER BY id_noticia DESC';
     BaseDatos.query(Consulta, (err, result) => {
         if (err) {
             console.error("ERROR SQL:", err);  // muestra el error verdadero
@@ -349,7 +349,7 @@ app.get('/TodasLasNoticias', (req, res) => {
 app.get('/IdNoticia/:id_noticia', (req, res) => {
     const id_noticias = req.params.id_noticia;
 
-    const Consulta = 'SELECT id_noticia, titulo, noticia, nombre_periodista, imagen from Noticias WHERE id_noticia = ?';
+    const Consulta = 'SELECT id_noticia, titulo, noticia, nombre_periodista, imagen from noticias WHERE id_noticia = ?';
 
     BaseDatos.query(Consulta, [id_noticias], (err, result) => {
         if (err) {
@@ -421,7 +421,7 @@ app.delete('/BorrarComentario/:id_comentario/:id_usuario', (req, res) => {
 
 app.delete('/Borrar/Noticia/:id_noticia', (req, res) => {
     const id_noticia = req.params.id_noticia;
-    const Consulta = 'DELETE FROM Noticias WHERE id_noticia = ?';
+    const Consulta = 'DELETE FROM noticias WHERE id_noticia = ?';
 
     BaseDatos.query(Consulta, [id_noticia], (err, result) => {
         if (err) {
@@ -443,7 +443,7 @@ app.delete('/Borrar/Noticia/:id_noticia', (req, res) => {
 //ruta para encontrar las noticias en el log de noticias
 app.get('/Log', (req, res) => {
 
-    const Consulta = 'SELECT * FROM Noticias ORDER BY fecha_de_publicacion DESC;';
+    const Consulta = 'SELECT * FROM noticias ORDER BY fecha_de_publicacion DESC;';
 
     BaseDatos.query(Consulta, (err, result) => {
 
